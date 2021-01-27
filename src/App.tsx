@@ -24,12 +24,10 @@ function App() {
             <tbody>
               {comments && comments.map((comment:any) => {
                 return (
-                  <>
-                    <tr key={comment.id} className='mb-3'>
-                      <td>{comment.name}</td>
-                      <td>{comment.body}</td>
-                    </tr>
-                  </>
+                  <tr key={comment.id} className='mb-3'>
+                    <td>{comment.name}</td>
+                    <td>{comment.body}</td>
+                  </tr>                  
                 )
               })}
             </tbody>
