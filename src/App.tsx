@@ -1,25 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import { Container, Col, Row, Table } from 'reactstrap'
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
+  const [comments, setComments]:any = useState([]);
+  
+  useEffect(() => {
+    (async () => {
+      const resp = await window.fetch('https://jsonplaceholder.typicode.com/comments')
+      const data = await resp.json();
+      setComments(data)
+    })()
+  }, [])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container>
+      <Row>
+        <Col>
+          <h1>Comments:</h1>
+          <Table bordered={false} striped className='mt-3'>
+            <tbody>
+              {comments && comments.map((comment:any) => {
+                return (
+                  <>
+                    <tr key={comment.id} className='mb-3'>
+                      <td>{comment.name}</td>
+                      <td>{comment.body}</td>
+                    </tr>
+                  </>
+                )
+              })}
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 
